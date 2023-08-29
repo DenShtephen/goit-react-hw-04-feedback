@@ -19,7 +19,10 @@ export const App = () => {
     }));
   };
 
-  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+  const totalFeedback = Object.values(feedback).reduce(
+    (total, value) => total + value,
+    0
+  );
 
   const positivePercentage =
     totalFeedback > 0 ? ((feedback.good / totalFeedback) * 100).toFixed(0) : 0;
@@ -39,7 +42,7 @@ export const App = () => {
             neutral={feedback.neutral}
             bad={feedback.bad}
             total={totalFeedback}
-            positivePercentage={positivePercentage}
+            positivePercentage={parseFloat(feedback.positivePercentage)}
           />
         ) : (
           <Notification message="There is no feedback" />
